@@ -4,6 +4,8 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 
+import Header from '../components/Header/index';
+
 import { FiCalendar, FiUser } from 'react-icons/fi';
 
 import { getPrismicClient } from '../services/prismic';
@@ -91,6 +93,8 @@ export default function Home({ postsPagination }: HomeProps) {
         <title>Home | spacetraveling</title>
       </Head>
 
+      <Header />
+
       <main className={commonStyles.container}>
         <div className={styles.posts}>
           {posts.map(post => {
@@ -136,7 +140,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const response = await prismic.query(
     [Prismic.predicates.at('document.type', 'post')],
     {
-      pageSize: 1,
+      pageSize: 2,
     }
   );
 
@@ -159,6 +163,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: { postsPagination },
-    revalidate: 60 * 60 // a cada 1 hora é atualizado a página
+    revalidate: 60 * 30 // a cada 1 hora é atualizado a página
   };
 };

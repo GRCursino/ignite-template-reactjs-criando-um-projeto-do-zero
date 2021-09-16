@@ -2,6 +2,8 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
+import Header from '../../components/Header/index';
+
 import { FiCalendar, FiUser, FiClock } from 'react-icons/fi';
 
 import Prismic from '@prismicio/client';
@@ -67,6 +69,8 @@ export default function Post({ post }: PostProps) {
       <Head>
         <title>{`${post.data.title} | spacetraveling`}</title>
       </Head>
+
+      <Header />
 
       <img src={post.data.banner.url} alt="imagem" className={styles.banner} />
 
@@ -155,5 +159,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: { post },
+    revalidate: 60 * 10
   };
 };
